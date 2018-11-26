@@ -3,12 +3,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class App extends Application {
     private Stage primaryStage;
 
+    /**
+     * The main method used by JavaFX.
+     * @param primaryStage -- passed by the JavaFX framework.
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Password Helper");
@@ -17,6 +20,9 @@ public class App extends Application {
         showMainWindow();
     }
 
+    /**
+     * Loads the main windown with the password, url and extra strings.
+     */
     public void showMainWindow() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("view/main.fxml"));
@@ -34,6 +40,10 @@ public class App extends Application {
         controller.setApp(this);
     }
 
+    /**
+     * Loads the result window. Called from MainController.
+     * @param password
+     */
     public void showResult(String password) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("view/result.fxml"));
