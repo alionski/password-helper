@@ -38,6 +38,7 @@ public class App extends Application {
 
         MainController controller = loader.getController();
         controller.setApp(this);
+        controller.init();
     }
 
     /**
@@ -59,6 +60,7 @@ public class App extends Application {
 
         ResultController controller = loader.getController();
         controller.setPassword(password);
+        controller.setApp(this);
     }
 
     /**

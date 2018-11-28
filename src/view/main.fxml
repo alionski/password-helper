@@ -28,21 +28,21 @@
                         <Insets right="15.0" />
                      </padding>
                   </Label>
-                  <PasswordField fx:id="fieldMasterPassword" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="fieldMasterPassword" onAction="#focusURL" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="65.0" prefWidth="65.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="345.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="65.0" prefWidth="87.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="279.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="https://www." />
+                        <Label ellipsisString="" prefHeight="15.0" prefWidth="85.0" text="https://www." />
                         <TextField fx:id="fieldURL" prefHeight="27.0" prefWidth="309.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <PasswordField fx:id="fieldExtraString" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <PasswordField fx:id="fieldAnswer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label alignment="CENTER_RIGHT" text="URL:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <padding>
                         <Insets right="15.0" />
@@ -53,14 +53,19 @@
                         <Insets right="15.0" />
                      </padding>
                   </Label>
-                  <Button mnemonicParsing="false" text="Generate Question" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#generatePassword" text="Generate Password" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <Button mnemonicParsing="false" onAction="#generateSeed" text="Generate Question" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button fx:id="buttonGeneratePwd" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#generatePassword" text="Generate Password" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                   <Label alignment="CENTER_RIGHT" text="Question:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <padding>
                         <Insets right="15.0" />
                      </padding>
                   </Label>
-                  <Label text="..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="labelQuestion" text="..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#init" prefHeight="25.0" prefWidth="83.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
                </children>
             </GridPane>
          </children>
