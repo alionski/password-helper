@@ -20,6 +20,12 @@ public class MainController {
     private Label labelQuestion;
     @FXML
     private Button buttonGeneratePwd;
+    private String master;
+    private String url;
+    private int seed;
+    private String question;
+    private String answer;
+    private String pwd;
 
     void setApp(App app) {
         this.app = app;
@@ -35,6 +41,22 @@ public class MainController {
         buttonGeneratePwd.setDisable(true);
     }
 
+    public void restoreState(State state) {
+        master = state.getMaster();
+        url = state.getUrl();
+        answer = state.getAnswer();
+        seed = state.getSeed();
+        question = Questions.questions[seed];
+
+        fieldMasterPassword.setText(master);
+        fieldURL.setText(url);
+        fieldAnswer.setText(answer);
+        labelQuestion.setText(question);
+
+        fieldAnswer.setDisable(false);
+        buttonGeneratePwd.setDisable(false);
+    }
+
     @FXML
     private void focusURL() {
         fieldURL.requestFocus();
@@ -42,10 +64,10 @@ public class MainController {
 
     @FXML
     private void generateSeed() {
-        String master = fieldMasterPassword.getText();
-        String url = fieldURL.getText();
+        master = fieldMasterPassword.getText();
+        url = fieldURL.getText();
         int seed = getMD5Seed(master + url);
-        String question = Questions.questions[seed];
+        question = Questions.questions[seed];
         labelQuestion.setText(question);
         buttonGeneratePwd.setDisable(false);
         fieldAnswer.setDisable(false);
@@ -81,11 +103,12 @@ public class MainController {
      */
     @FXML
     private void generatePassword() {
-        String master = fieldMasterPassword.getText();
-        String url = fieldURL.getText();
-        String answer = fieldAnswer.getText();
-        String pwd = hash512Strings(master + url + answer);
+        master = fieldMasterPassword.getText();
+        url = fieldURL.getText();
+        answer = fieldAnswer.getText();
+        pwd = hash512Strings(master + url + answer);
         pwd = postprocessHash(pwd);
+        app.saveState(new State(master, url, seed, answer));
         app.showResult(pwd);
     }
 

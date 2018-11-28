@@ -20,8 +20,9 @@ public class ResultController {
     }
 
     @FXML
-    private void showMain() {
+    private void back() {
         app.showMainWindow();
+        app.restoreState();
     }
 
     @FXML

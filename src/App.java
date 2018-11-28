@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class App extends Application {
     private Stage primaryStage;
+    private State state;
+    private MainController mainCtrl;
 
     /**
      * The main method used by JavaFX.
@@ -16,7 +18,6 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Password Helper");
         this.primaryStage = primaryStage;
-
         showMainWindow();
     }
 
@@ -36,9 +37,17 @@ public class App extends Application {
         primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();
 
-        MainController controller = loader.getController();
-        controller.setApp(this);
-        controller.init();
+        mainCtrl = loader.getController();
+        mainCtrl.setApp(this);
+        mainCtrl.init();
+    }
+
+    public void restoreState() {
+        mainCtrl.restoreState(state);
+    }
+
+    public void saveState(State state) {
+        this.state = state;
     }
 
     /**

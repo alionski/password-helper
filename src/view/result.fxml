@@ -46,6 +46,6 @@
             </GridPane>
          </children>
       </GridPane>
-      <Button fx:id="buttonBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#showMain" text="&lt;- Back" />
+      <Button fx:id="buttonBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;- Back" />
    </children>
 </AnchorPane>
