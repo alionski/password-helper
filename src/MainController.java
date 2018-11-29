@@ -112,10 +112,49 @@ public class MainController {
         app.showResult(pwd);
     }
 
+    /**
+     * convert hex string into new string containing uppercase/lowercase letters, numbers, and special characters
+     */
     private String postprocessHash(String pwd) {
-        // TODO postprocess the hash to show all types of chars
-        return pwd;
+        int[] tmp = stringToIntArray(pwd);
+        return intArrayToPwdString(tmp);
     }
+
+    private int[] stringToIntArray(String pwd){
+        int[] tmp = new int[pwd.length()/2];
+        for(int i=0; i<tmp.length; i++)
+            tmp[i] = hexCharToInt(pwd.charAt(i*2))*16 + hexCharToInt(pwd.charAt(i*2+1));
+        return tmp;
+    }
+
+    private int hexCharToInt(char hexChar){
+        int decimalValue;
+        if(hexChar>='A' && hexChar<='F')
+            return hexChar-'A'+10;
+        else if(hexChar>='a' && hexChar<='f')
+            return hexChar-'a'+10;
+        else if(hexChar>='0' && hexChar<='9')
+            return hexChar-'0';
+        else return 0;/**else error!!*/
+    }
+
+    private String intArrayToPwdString(int[] tmp){
+        char[] newPwd = new char[tmp.length];
+        for(int i=0; i<tmp.length; i++){
+            switch(i%4){
+                case 0: newPwd[i] = (char)(tmp[i]%26 + 65);
+                    break;
+                case 1: newPwd[i] = (char)(tmp[i]%26 + 97);
+                    break;
+                case 2: newPwd[i] = (char)(tmp[i]%10 + 48);
+                    break;
+                case 3: newPwd[i] = (char)(tmp[i]%15 + 33);
+                    break;
+            }
+        }
+        return new String(newPwd);
+    }
+
 
     private String hash512Strings(String toHash) {
         MessageDigest digest = null;
