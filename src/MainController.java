@@ -106,10 +106,17 @@ public class MainController {
         master = fieldMasterPassword.getText();
         url = fieldURL.getText();
         answer = fieldAnswer.getText();
-        pwd = hash512Strings(master + url + answer);
+        pwd = hash512Strings(master + url + stripAnswer(answer));
         pwd = postprocessHash(pwd);
         app.saveState(new State(master, url, seed, answer));
         app.showResult(pwd);
+    }
+
+    private String stripAnswer(String answer) {
+        String stripped = answer.replaceAll("[^a-zA-Z0-9_-]", "");
+        stripped = stripped.toLowerCase();
+        System.out.println(stripped);
+        return stripped;
     }
 
     private String postprocessHash(String pwd) {
