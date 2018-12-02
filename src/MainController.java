@@ -17,7 +17,7 @@ public class MainController {
     @FXML
     private TextField fieldURL;
     @FXML
-    private Label labelQuestion;
+    private Label labelQuestion, labelEmptyField;
     @FXML
     private Button buttonGeneratePwd;
     private String master;
@@ -25,7 +25,6 @@ public class MainController {
     private int seed;
     private String question;
     private String answer;
-    private String pwd;
 
     void setApp(App app) {
         this.app = app;
@@ -33,15 +32,21 @@ public class MainController {
 
     @FXML
     public void init() {
+        hideEmptyFieldMessage();
         fieldMasterPassword.setText("");
+        master = "";
         fieldURL.setText("");
+        url = "";
         labelQuestion.setText("...");
+        question = "";
         fieldAnswer.setText("");
+        answer = "";
         fieldAnswer.setDisable(true);
         buttonGeneratePwd.setDisable(true);
+        labelEmptyField.setText("");
     }
 
-    public void restoreState(State state) {
+    void restoreState(State state) {
         master = state.getMaster();
         url = state.getUrl();
         answer = state.getAnswer();
@@ -66,6 +71,15 @@ public class MainController {
     private void generateSeed() {
         master = fieldMasterPassword.getText();
         url = fieldURL.getText();
+
+        if (master == null || master.equals("") ||
+                url == null || url.equals("")) {
+            showEmptyFieldMessage();
+            return;
+        }
+
+        hideEmptyFieldMessage();
+
         int seed = getMD5Seed(master + url);
         question = Questions.questions[seed];
         labelQuestion.setText(question);
@@ -93,29 +107,42 @@ public class MainController {
             sum += (int) b;
         }
 
-        System.out.println("Sum: " + sum);
-        System.out.println("Seed: " + Math.abs(sum) % 10);
         return Math.abs(sum) % 10;
     }
 
     /**
-     * Called when the user clicks "generate passworrd" button, see main.fxml
+     * Called when the user clicks "generate password" button, see main.fxml
      */
     @FXML
     private void generatePassword() {
         master = fieldMasterPassword.getText();
         url = fieldURL.getText();
         answer = fieldAnswer.getText();
-        pwd = hash512Strings(master + url + stripAnswer(answer));
+
+        if (master == null || master.equals("") ||
+                url == null || url.equals("") ||
+                answer == null || answer.equals("")) {
+            showEmptyFieldMessage();
+            return;
+        }
+
+        String pwd = hash512Strings(master + url + stripAnswer(answer));
         pwd = postprocessHash(pwd);
         app.saveState(new State(master, url, seed, answer));
         app.showResult(pwd);
     }
 
+    private void showEmptyFieldMessage() {
+        labelEmptyField.setText("One of the fields is empty");
+    }
+
+    private void hideEmptyFieldMessage() {
+        labelEmptyField.setText("");
+    }
+
     private String stripAnswer(String answer) {
         String stripped = answer.replaceAll("[^a-zA-Z0-9_-]", "");
         stripped = stripped.toLowerCase();
-        System.out.println(stripped);
         return stripped;
     }
 

@@ -68,6 +68,7 @@
                   </Button>
                </children>
             </GridPane>
+            <Label fx:id="labelEmptyField" alignment="CENTER" contentDisplay="CENTER" layoutX="266.0" layoutY="56.0" textAlignment="CENTER" textFill="#940e0e" />
          </children>
       </Pane>
    </children>
