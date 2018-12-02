@@ -80,7 +80,7 @@ public class MainController {
 
         hideEmptyFieldMessage();
 
-        int seed = getMD5Seed(master + url);
+        seed = getMD5Seed(master + url);
         question = Questions.questions[seed];
         labelQuestion.setText(question);
         buttonGeneratePwd.setDisable(false);
