@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -20,7 +21,10 @@
          <children>
             <TextField fx:id="fieldPassword" GridPane.rowIndex="1" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="136.0" text="Your password is:" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" />
-            <Label text="!DISCLAIMER" GridPane.rowIndex="2" />
+            <Label text="Some services have password length limit. If your re-generated password does not work, you might want to check if you need to cut the password  as per the service's requirements. " textAlignment="CENTER" textFill="#6f6464" wrapText="true" GridPane.rowIndex="2">
+               <font>
+                  <Font size="10.5" />
+               </font></Label>
             <GridPane GridPane.rowIndex="3">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="196.0" />
